@@ -5,19 +5,25 @@
 import express from "express";
 import cors from "cors";
 import { createClient } from "@supabase/supabase-js";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ─── Startup env check ───────────────────────────────────────────────────────
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+
+console.log("SUPABASE_URL present:", !!SUPABASE_URL);
+console.log("SUPABASE_ANON_KEY present:", !!SUPABASE_ANON_KEY);
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  console.error("ERROR: Missing Supabase env vars. Check Railway Variables tab.");
+  process.exit(1);
+}
+
 // ─── Supabase client ────────────────────────────────────────────────────────
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ─── Health check ────────────────────────────────────────────────────────────
 app.get("/", (req, res) => {
