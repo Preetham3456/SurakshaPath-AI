@@ -1,0 +1,18 @@
+{
+  "name": "surakshapath-m4-api",
+  "version": "1.0.0",
+  "description": "SurakshaPath AI — Member 4 Scoring & Intelligence API",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "cron": "node cron.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
